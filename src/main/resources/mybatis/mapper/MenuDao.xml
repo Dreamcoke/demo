@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qhw.demo.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.qhw.demo.domain.Menu">
+    <id column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_perms" jdbcType="VARCHAR" property="menuPerms" />
+    <result column="menu_components" jdbcType="VARCHAR" property="menuComponents" />
+    <result column="menu_date" jdbcType="TIMESTAMP" property="menuDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    menu_id, menu_name, menu_perms, menu_components, menu_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="menu_id" keyProperty="menuId" parameterType="com.qhw.demo.domain.Menu" useGeneratedKeys="true">
+    insert into menu (menu_name, menu_perms, menu_components, 
+      menu_date)
+    values (#{menuName,jdbcType=VARCHAR}, #{menuPerms,jdbcType=VARCHAR}, #{menuComponents,jdbcType=VARCHAR}, 
+      #{menuDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="menu_id" keyProperty="menuId" parameterType="com.qhw.demo.domain.Menu" useGeneratedKeys="true">
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="menuPerms != null">
+        menu_perms,
+      </if>
+      <if test="menuComponents != null">
+        menu_components,
+      </if>
+      <if test="menuDate != null">
+        menu_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuPerms != null">
+        #{menuPerms,jdbcType=VARCHAR},
+      </if>
+      <if test="menuComponents != null">
+        #{menuComponents,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDate != null">
+        #{menuDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qhw.demo.domain.Menu">
+    update menu
+    <set>
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuPerms != null">
+        menu_perms = #{menuPerms,jdbcType=VARCHAR},
+      </if>
+      <if test="menuComponents != null">
+        menu_components = #{menuComponents,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDate != null">
+        menu_date = #{menuDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qhw.demo.domain.Menu">
+    update menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_perms = #{menuPerms,jdbcType=VARCHAR},
+      menu_components = #{menuComponents,jdbcType=VARCHAR},
+      menu_date = #{menuDate,jdbcType=TIMESTAMP}
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </update>
+</mapper>

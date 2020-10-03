@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qhw.demo.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.qhw.demo.domain.Role">
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_date" jdbcType="TIMESTAMP" property="roleDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    role_id, role_name, role_date
+  </sql>
+  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT r.role_id
+    FROM role r
+    LEFT JOIN user_role ur on ur.role_id=r.role_id
+    LEFT JOIN user u on ur.user_id=u.user_id
+    WHERE u.user_id=#{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAllRole" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"></include>
+    FROM role
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from role
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="role_id" keyProperty="roleId" parameterType="com.qhw.demo.domain.Role" useGeneratedKeys="true">
+    insert into role (role_name, role_date)
+    values (#{roleName,jdbcType=VARCHAR}, #{roleDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="role_id" keyProperty="roleId" parameterType="com.qhw.demo.domain.Role" useGeneratedKeys="true">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="roleDate != null">
+        role_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDate != null">
+        #{roleDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qhw.demo.domain.Role">
+    update role
+    <set>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDate != null">
+        role_date = #{roleDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qhw.demo.domain.Role">
+    update role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_date = #{roleDate,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </update>
+</mapper>

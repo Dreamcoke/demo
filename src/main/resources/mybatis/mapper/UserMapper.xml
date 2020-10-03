@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qhw.demo.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.qhw.demo.domain.User">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_department_id" jdbcType="BIGINT" property="userDepartmentId" />
+    <result column="user_phonenumber" jdbcType="VARCHAR" property="userPhonenumber" />
+    <result column="user_date" jdbcType="TIMESTAMP" property="userDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SELECT user_id, user_name, user_password, user_department_id, user_phonenumber, user_date FROM user
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap">
+    <include refid="Base_Column_List"></include>
+  </select>
+  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Base_Column_List" />
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.qhw.demo.domain.User" useGeneratedKeys="true">
+    insert into user (user_name, user_password, user_department_id,
+    user_phonenumber, user_date)
+    values (#{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userDepartmentId,jdbcType=INTEGER},
+    #{userPhonenumber,jdbcType=VARCHAR}, sysdate())
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.qhw.demo.domain.User">
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+    user_password = #{userPassword,jdbcType=VARCHAR},
+    user_department_id = #{userDepartmentId,jdbcType=BIGINT},
+    user_phonenumber = #{userPhonenumber,jdbcType=VARCHAR},
+    user_date = sysdate()
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

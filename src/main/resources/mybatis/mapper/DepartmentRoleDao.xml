@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qhw.demo.mapper.DepartmentRoleMapper">
+  <resultMap id="BaseResultMap" type="com.qhw.demo.domain.DepartmentRoleKey">
+    <id column="department_id" jdbcType="BIGINT" property="departmentId" />
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.qhw.demo.domain.DepartmentRoleKey">
+    delete from department_role
+    where department_id = #{departmentId,jdbcType=BIGINT}
+      and role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="department_id" keyProperty="departmentId" parameterType="com.qhw.demo.domain.DepartmentRoleKey" useGeneratedKeys="true">
+    insert into department_role (role_id)
+    values (#{roleId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="department_id" keyProperty="departmentId" parameterType="com.qhw.demo.domain.DepartmentRoleKey" useGeneratedKeys="true">
+    insert into department_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

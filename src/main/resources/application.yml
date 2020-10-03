@@ -1,0 +1,20 @@
+spring:
+  datasource:
+#   数据源基本配置
+    username: root
+    password:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/demo?serverTimezone=GMT
+    type: com.alibaba.druid.pool.DruidDataSource
+# 开发环境配置
+server:
+  # 服务器的HTTP端口，默认为8085
+  port: 8085
+# MyBatis配置
+mybatis:
+    # 搜索指定包别名
+    typeAliasesPackage: com.qhw.**.domain
+    # 配置mapper的扫描，找到所有的mapper.xml映射文件
+    mapperLocations: classpath*:mybatis/mapper/*.xml
+    # 加载全局的配置文件
+    configLocation: classpath:mybatis/mybatis-config.xml
