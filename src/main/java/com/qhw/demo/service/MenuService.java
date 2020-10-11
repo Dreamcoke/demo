@@ -1,9 +1,14 @@
 package com.qhw.demo.service;
 
 import com.qhw.demo.domain.Menu;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+@Service
 public interface MenuService {
     int deleteByPrimaryKey(Long menuId);
+
+    List<Menu> selectAllMenu();
 
     int insert(Menu record);
 
@@ -11,7 +16,9 @@ public interface MenuService {
 
     Menu selectByPrimaryKey(Long menuId);
 
-    int updateByPrimaryKeySelective(Menu record);
+    int update(Menu record);
 
     int updateByPrimaryKey(Menu record);
+
+    boolean checkMenuExistRole(Long menuId);
 }

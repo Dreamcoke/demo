@@ -8,10 +8,14 @@
     <result column="dept_phone_number" jdbcType="VARCHAR" property="deptPhoneNumber" />
     <result column="dept_manger" jdbcType="VARCHAR" property="deptManger" />
   </resultMap>
+
+  <resultMap id="roleResultMap" type="com.qhw.demo.domain.Role">
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
   <sql id="Base_Column_List">
     dept_id, dept_name, dept_date, dept_phone_number, dept_manger
   </sql>
-  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select dept.dept_id
     from department dept
     LEFT JOIN user_department ud on ud.department_id=dept.dept_id
@@ -20,17 +24,24 @@
   </select>
   <select id="selectAllDepartment" resultMap="BaseResultMap">
     SELECT
+    dept_id, dept_name, dept_date, dept_phone_number, dept_manger,dr.role_id
+    FROM department d
+    LEFT JOIN department_role dr
+    ON d.dept_id=dr.department_id
+  </select>
+  <select id="selectDepartmentById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT
     <include refid="Base_Column_List"></include>
     FROM department
+    WHERE dept_id=#{deptId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from department
     where dept_id = #{deptId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyColumn="dept_id" keyProperty="deptId" parameterType="com.qhw.demo.domain.Department" useGeneratedKeys="true">
-    insert into department (dept_name, dept_date, dept_phone_number, 
-      dept_manger)
-    values (#{deptName,jdbcType=VARCHAR}, #{deptDate,jdbcType=VARCHAR}, #{deptPhoneNumber,jdbcType=VARCHAR}, 
+    insert into department (dept_name, dept_date, dept_phone_number, dept_manger)
+    values (#{deptName,jdbcType=VARCHAR}, sysdate(), #{deptPhoneNumber,jdbcType=VARCHAR},
       #{deptManger,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="dept_id" keyProperty="deptId" parameterType="com.qhw.demo.domain.Department" useGeneratedKeys="true">
@@ -85,7 +96,7 @@
   <update id="updateByPrimaryKey" parameterType="com.qhw.demo.domain.Department">
     update department
     set dept_name = #{deptName,jdbcType=VARCHAR},
-      dept_date = #{deptDate,jdbcType=VARCHAR},
+      dept_date = sysdate(),
       dept_phone_number = #{deptPhoneNumber,jdbcType=VARCHAR},
       dept_manger = #{deptManger,jdbcType=VARCHAR}
     where dept_id = #{deptId,jdbcType=BIGINT}

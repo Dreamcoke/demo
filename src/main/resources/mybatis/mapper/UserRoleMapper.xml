@@ -5,6 +5,9 @@
     <id column="user_id" jdbcType="BIGINT" property="userId" />
     <id column="role_id" jdbcType="BIGINT" property="roleId" />
   </resultMap>
+  <select id="countUserRoleByRoleId" parameterType="java.lang.Long" resultType="int">
+    SELECT COUNT(1) FROM user_role WHERE role_id=#{roleId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.qhw.demo.domain.UserRoleKey">
     delete from user_role
     where user_id = #{userId,jdbcType=BIGINT}

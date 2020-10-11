@@ -14,6 +14,12 @@
     insert into department_role (role_id)
     values (#{roleId,jdbcType=BIGINT})
   </insert>
+  <insert id="batchinsert">
+    insert into department_role(department_id, role_id) values
+    <foreach item="item" index="index" collection="list" separator=",">
+      (#{item.departmentId},#{item.roleId})
+    </foreach>
+  </insert>
   <insert id="insertSelective" keyColumn="department_id" keyProperty="departmentId" parameterType="com.qhw.demo.domain.DepartmentRoleKey" useGeneratedKeys="true">
     insert into department_role
     <trim prefix="(" suffix=")" suffixOverrides=",">

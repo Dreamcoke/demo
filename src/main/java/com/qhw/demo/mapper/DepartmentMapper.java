@@ -11,7 +11,7 @@ public interface DepartmentMapper {
 
     int insertSelective(Department record);
 
-    List<Integer> selectById(Long userId);
+    List<Integer> selectByUserId(Long userId);
 
     int updateByPrimaryKeySelective(Department record);
 
@@ -19,6 +19,6 @@ public interface DepartmentMapper {
 
     List<Department> selectAllDepartment();
 
-    int selectDepartmentByUserId(long id);
+    Department selectDepartmentById(long id);
 
 }

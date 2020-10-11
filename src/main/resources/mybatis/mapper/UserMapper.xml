@@ -8,16 +8,30 @@
     <result column="user_department_id" jdbcType="BIGINT" property="userDepartmentId" />
     <result column="user_phonenumber" jdbcType="VARCHAR" property="userPhonenumber" />
     <result column="user_date" jdbcType="TIMESTAMP" property="userDate" />
+    <!--<association column="dept_id" javaType="com.qhw.demo.domain.Department" property="dept"  resultMap="deptResult" />-->
+  </resultMap>
+  <resultMap id="deptResult" type="com.qhw.demo.domain.Department">
+    <id column="dept_id" jdbcType="BIGINT" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="dept_date" jdbcType="VARCHAR" property="deptDate" />
+    <result column="dept_phone_number" jdbcType="VARCHAR" property="deptPhoneNumber" />
+    <result column="dept_manger" jdbcType="VARCHAR" property="deptManger" />
   </resultMap>
   <sql id="Base_Column_List">
-    SELECT user_id, user_name, user_password, user_department_id, user_phonenumber, user_date FROM user
+    SELECT user_id, user_name, user_password, user_phonenumber, user_department_id,user_date FROM user
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap">
-    <include refid="Base_Column_List"></include>
+    SELECT u.user_id, user_name, user_password, user_phonenumber, user_department_id,user_date ,ur.role_id FROM user u
+    LEFT JOIN user_role ur
+    ON u.user_id=ur.user_id
   </select>
   <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <include refid="Base_Column_List" />
     where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="checkUsernameUnique" parameterType="java.lang.String" resultType="int">
+    SELECT  COUNT(1) FROM user
+    where  user_name= #{userName}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user

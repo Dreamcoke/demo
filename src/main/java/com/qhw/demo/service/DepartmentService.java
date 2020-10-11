@@ -22,5 +22,8 @@ public interface DepartmentService {
 
     List<Department> selectAllDepartment();
 
-    int selectDepartmentByUserId(long id);
+    Department selectDepartmentById(long id);
+
+    boolean checkDeptHasUser(Long deptId);
+
 }

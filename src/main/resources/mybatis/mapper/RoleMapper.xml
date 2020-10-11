@@ -16,6 +16,11 @@
     LEFT JOIN user u on ur.user_id=u.user_id
     WHERE u.user_id=#{userId,jdbcType=BIGINT}
   </select>
+  <select id="selectRoleById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"></include>
+    FROM role
+    WHERE role_id = #{id,jdbcType=BIGINT}
+  </select>
   <select id="selectAllRole" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List"></include>
     FROM role
@@ -26,7 +31,7 @@
   </delete>
   <insert id="insert" keyColumn="role_id" keyProperty="roleId" parameterType="com.qhw.demo.domain.Role" useGeneratedKeys="true">
     insert into role (role_name, role_date)
-    values (#{roleName,jdbcType=VARCHAR}, #{roleDate,jdbcType=TIMESTAMP})
+    values (#{roleName,jdbcType=VARCHAR}, sysdate())
   </insert>
   <insert id="insertSelective" keyColumn="role_id" keyProperty="roleId" parameterType="com.qhw.demo.domain.Role" useGeneratedKeys="true">
     insert into role
@@ -47,7 +52,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qhw.demo.domain.Role">
+  <update id="updateByPrimaryKey" parameterType="com.qhw.demo.domain.Role">
     update role
     <set>
       <if test="roleName != null">
@@ -59,10 +64,10 @@
     </set>
     where role_id = #{roleId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qhw.demo.domain.Role">
+  <update id="batchinsert" parameterType="com.qhw.demo.domain.Role">
     update role
     set role_name = #{roleName,jdbcType=VARCHAR},
-      role_date = #{roleDate,jdbcType=TIMESTAMP}
+      role_date = sysdate(),
     where role_id = #{roleId,jdbcType=BIGINT}
   </update>
 </mapper>

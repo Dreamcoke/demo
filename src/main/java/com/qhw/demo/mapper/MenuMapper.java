@@ -2,6 +2,8 @@ package com.qhw.demo.mapper;
 
 import com.qhw.demo.domain.Menu;
 
+import java.util.List;
+
 public interface MenuMapper {
     int deleteByPrimaryKey(Long menuId);
 
@@ -11,7 +13,9 @@ public interface MenuMapper {
 
     Menu selectByPrimaryKey(Long menuId);
 
-    int updateByPrimaryKeySelective(Menu record);
+    List<Menu> selectAllMenu();
+
+    int update(Menu record);
 
     int updateByPrimaryKey(Menu record);
 }

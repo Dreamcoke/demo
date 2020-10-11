@@ -10,4 +10,5 @@ public interface UserDepartmentService {
     int insert(UserDepartmentKey record);
 
     int insertSelective(UserDepartmentKey record);
+
 }

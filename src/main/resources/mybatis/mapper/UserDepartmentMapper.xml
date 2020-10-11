@@ -5,6 +5,10 @@
     <id column="user_id" jdbcType="BIGINT" property="userId" />
     <id column="department_id" jdbcType="BIGINT" property="departmentId" />
   </resultMap>
+
+  <select id="checkDeptHasUser" parameterType="java.lang.Long" resultType="int">
+    SELECT COUNT(1) FROM user_department WHERE department_id=#{deptId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.qhw.demo.domain.UserDepartmentKey">
     delete from user_department
     where user_id = #{userId,jdbcType=BIGINT}

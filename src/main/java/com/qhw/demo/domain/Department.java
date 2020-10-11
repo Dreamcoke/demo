@@ -1,21 +1,34 @@
 package com.qhw.demo.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
  * department
  * @author 
  */
+@ApiModel(description = "部门")
 public class Department implements Serializable {
+
+    @ApiModelProperty(name = "deptId",value = "部门id",example = "2")
     private Long deptId;
 
+    @ApiModelProperty(name = "deptName",value = "部门名称",example = "经营部",required = true)
     private String deptName;
 
+    @ApiModelProperty(name = "deptDate",value = "部门创建日期",required = true)
     private String deptDate;
 
+    @ApiModelProperty(name = "deptPhoneNumber",value = "部门电话",example = "15211112222",required = true)
     private String deptPhoneNumber;
 
+    @ApiModelProperty(name = "deptManger",value = "部门负责人",example = "张三",required = true)
     private String deptManger;
+
+    @ApiModelProperty(name = "roleId",value = "部门所属角色ID",example = "1",required = true)
+    private Long roleId;
 
     private static final long serialVersionUID = 1L;
 
@@ -57,6 +70,14 @@ public class Department implements Serializable {
 
     public void setDeptManger(String deptManger) {
         this.deptManger = deptManger;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     @Override

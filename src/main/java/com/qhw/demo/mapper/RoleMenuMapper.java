@@ -1,11 +1,18 @@
 package com.qhw.demo.mapper;
 
+import com.qhw.demo.domain.Role;
 import com.qhw.demo.domain.RoleMenuKey;
 
-public interface RoleMenuMapper {
-    int deleteByPrimaryKey(RoleMenuKey key);
+import java.util.List;
 
-    int insert(RoleMenuKey record);
+public interface RoleMenuMapper {
+    int deleteByPrimaryKey(Long roleId);
+
+    int insert(Role role);
 
     int insertSelective(RoleMenuKey record);
+
+    int batchinsert(List<RoleMenuKey> list);
+
+    int checkMenuExistRole(Long menuId);
 }

@@ -10,4 +10,6 @@ public interface UserDepartmentMapper {
     int insert(UserDepartmentKey record);
 
     int insertSelective(UserDepartmentKey record);
+
+    int checkDeptHasUser(Long deptId);
 }

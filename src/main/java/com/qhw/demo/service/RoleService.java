@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface RoleService {
-    int deleteByPrimaryKey(Long roleId);
+    String deleteByPrimaryKey(Long roleId);
 
     int insert(Role record);
 
@@ -17,9 +17,11 @@ public interface RoleService {
 
     int updateByPrimaryKeySelective(Role record);
 
-    int updateByPrimaryKey(Role record);
+    int updateByPrimaryKey(Role role);
 
     List<Role> selectAllRole();
 
-    int selectRoleByUserId(long id);
+    Role selectRoleById(Long id);
+
+    //int updateRoleDept(Role role);
 }

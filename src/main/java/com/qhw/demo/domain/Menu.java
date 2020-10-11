@@ -1,5 +1,10 @@
 package com.qhw.demo.domain;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.springframework.context.annotation.Bean;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,15 +12,18 @@ import java.util.Date;
  * menu
  * @author 
  */
+@ApiModel(description = "菜单")
 public class Menu implements Serializable {
+    @ApiModelProperty(name = "menuId",value = "菜单ID",example = "3")
     private Long menuId;
-
+    @ApiModelProperty(name = "menuName",value = "菜单名称",example = "菜单管理",required =true )
     private String menuName;
-
+    @ApiModelProperty(name = "menuPerms",value = "菜单权限字符",example = "sys:menu:list",required = true)
     private String menuPerms;
+    @ApiModelProperty(name = "menuComponents",value = "菜单组件",example = "system/menu/index",required = true)
 
     private String menuComponents;
-
+    @ApiModelProperty(name = "menuDate",value = "菜单创建日期")
     private Date menuDate;
 
     private static final long serialVersionUID = 1L;

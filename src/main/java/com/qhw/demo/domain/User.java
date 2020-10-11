@@ -1,5 +1,8 @@
 package com.qhw.demo.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,20 +10,39 @@ import java.util.Date;
  * user
  * @author 
  */
+@ApiModel(description = "用户")
 public class User implements Serializable {
+    @ApiModelProperty(value = "用户id",name = "userId",example = "17",required = true)
     private Long userId;
 
+    @ApiModelProperty(value = "用户名称",name = "userName",example = "coke1111",required = true)
     private String userName;
 
+    @ApiModelProperty(value = "用户密码",name = "userPassword",example = "sdsdsds",required = true)
     private String userPassword;
 
+    @ApiModelProperty(value = "用户所属部门编号",name = "userDepartmentId",example = "1",required = true)
     private Long userDepartmentId;
 
+    @ApiModelProperty(value = "用户电话",name = "userPhonenumber",example = "15912345678",required = true)
     private String userPhonenumber;
 
+    @ApiModelProperty(value = "用户创建日期")
     private Date userDate;
 
+    @ApiModelProperty(value = "角色id",name ="roleId",example = "1",required = true)
     private long roleId;
+
+//    @ApiModelProperty(value = "部门")
+//    private Department dept;
+
+//    public Department getDept() {
+//        return dept;
+//    }
+//
+//    public void setDept(Department dept) {
+//        this.dept = dept;
+//    }
 
     public void setRoleId(long roleId) {
         this.roleId = roleId;

@@ -19,5 +19,5 @@ public interface RoleMapper {
 
     List<Role> selectAllRole();
 
-    int selectRoleByUserId(long id);
+    Role selectRoleById(Long id);
 }

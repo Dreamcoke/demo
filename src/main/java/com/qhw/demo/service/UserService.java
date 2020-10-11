@@ -18,4 +18,6 @@ public interface UserService {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    int checkNameUnique(String userName);
 }

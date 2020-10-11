@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public int checkNameUnique(String userName) {
+        return userMapper.checkUsernameUnique(userName);
+    }
+
+    @Override
     public int deleteByPrimaryKey(Long userId) {
         //删除用户与部门关联
         userDepartmentMapper.deleteById(userId);
