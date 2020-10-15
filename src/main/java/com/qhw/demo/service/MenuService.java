@@ -1,6 +1,7 @@
 package com.qhw.demo.service;
 
 import com.qhw.demo.domain.Menu;
+import com.qhw.demo.domain.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface MenuService {
     int updateByPrimaryKey(Menu record);
 
     boolean checkMenuExistRole(Long menuId);
+
+    List<Menu> selectByUser(User user);
+
+    List<Menu> selectByUserId(Long userId);
 }

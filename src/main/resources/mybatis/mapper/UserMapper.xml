@@ -18,10 +18,10 @@
     <result column="dept_manger" jdbcType="VARCHAR" property="deptManger" />
   </resultMap>
   <sql id="Base_Column_List">
-    SELECT user_id, user_name, user_password, user_phonenumber, user_department_id,user_date FROM user
+    SELECT user_id, user_name, user_phonenumber, user_department_id,user_date FROM user
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap">
-    SELECT u.user_id, user_name, user_password, user_phonenumber, user_department_id,user_date ,ur.role_id FROM user u
+    SELECT u.user_id, user_name, user_phonenumber, user_department_id,user_date ,ur.role_id FROM user u
     LEFT JOIN user_role ur
     ON u.user_id=ur.user_id
   </select>
@@ -32,6 +32,14 @@
   <select id="checkUsernameUnique" parameterType="java.lang.String" resultType="int">
     SELECT  COUNT(1) FROM user
     where  user_name= #{userName}
+  </select>
+  <select id="selectUserByUserName" parameterType="String" resultMap="BaseResultMap">
+    <include refid="Base_Column_List"></include>
+    where user_name = #{userName}
+  </select>
+
+  <select id="selectByLoginUser" resultMap="BaseResultMap">
+    SELECT * FROM user WHERE user_name=#{arg0} AND user_password=#{arg1}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user

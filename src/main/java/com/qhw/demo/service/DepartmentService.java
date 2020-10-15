@@ -26,4 +26,6 @@ public interface DepartmentService {
 
     boolean checkDeptHasUser(Long deptId);
 
+    List<Department> selectDepartmentByUserId(Long userId);
+
 }

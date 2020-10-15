@@ -25,6 +25,12 @@ public class RoleServiceImpl implements RoleService{
     @Autowired
     private DepartmentRoleMapper departmentRoleMapper;
 
+
+    @Override
+    public List<Role> selectRoleByUserId(Long userId) {
+        return roleMapper.selectRoleByUserId(userId);
+    }
+
     @Override
     public String deleteByPrimaryKey(Long roleId) {
         if(countUserRoleByRoleId(roleId)>0){

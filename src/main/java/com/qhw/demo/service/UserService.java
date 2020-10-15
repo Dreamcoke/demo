@@ -20,4 +20,8 @@ public interface UserService {
     int updateByPrimaryKey(User record);
 
     int checkNameUnique(String userName);
+
+    User selectUserByUserName(String name);
+
+    User login(String userName,String userPassword);
 }

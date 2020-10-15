@@ -19,6 +19,8 @@ public interface DepartmentMapper {
 
     List<Department> selectAllDepartment();
 
-    Department selectDepartmentById(long id);
+    Department selectDepartmentById(Long id);
+
+    List<Department> selectDepartmentByUserId(Long userId);
 
 }

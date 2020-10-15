@@ -22,6 +22,14 @@
     <include refid="Base_Column_List"></include>
     FROM menu
   </select>
+
+  <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT DISTINCT m.menu_id,m.menu_name,m.menu_components,m.menu_perms FROM menu m
+    LEFT JOIN role_menu rm on rm.menu_id=m.menu_id
+    LEFT JOIN user_role ur on ur.role_id=rm.role_id
+    LEFT JOIN user u on u.user_id=ur.user_id
+    WHERE u.user_id=#{userId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from menu
     where menu_id = #{menuId,jdbcType=BIGINT}

@@ -1,6 +1,7 @@
 package com.qhw.demo.service;
 
 import com.qhw.demo.domain.Role;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public interface RoleService {
     int insertSelective(Role record);
 
     List<Integer> selectById(Long roleId);
+
+    List<Role> selectRoleByUserId(Long userId);
 
     int updateByPrimaryKeySelective(Role record);
 

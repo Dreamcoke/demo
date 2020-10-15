@@ -20,4 +20,6 @@ public interface RoleMapper {
     List<Role> selectAllRole();
 
     Role selectRoleById(Long id);
+
+    List<Role> selectRoleByUserId(Long userId);
 }

@@ -5,6 +5,7 @@ import com.qhw.demo.domain.Role;
 import com.qhw.demo.domain.User;
 import com.qhw.demo.message.AjaxResult;
 import com.qhw.demo.service.*;
+import com.qhw.demo.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -29,13 +30,13 @@ public class UserController extends BaseController{
     @Autowired
     private DepartmentService departmentService;
 
-    @ApiOperation("查看所有用户列表接口")
+    @ApiOperation(value = "查看所有用户列表接口",notes = "返回用户信息，包括用户所属部门和角色id")
     @GetMapping("/list")
     public List<User> list(){
         List<User> list=userService.selectUser();
         return list;
     }
-    @ApiOperation("查看单个用户信息接口(将所有部门和角色信息一并返回)")
+    @ApiOperation(value = "查看单个用户信息接口" ,notes ="查看单个用户信息接口(将所有部门和角色信息一并返回)" )
     @GetMapping("/{userId}")
     @ApiImplicitParam(name = "userId", value = "用户id", defaultValue = "15", required = true,paramType ="path",dataType = "Long")
     public AjaxResult getInfo(@PathVariable long userId){
@@ -57,6 +58,7 @@ public class UserController extends BaseController{
         if(1==userService.checkNameUnique(user.getUserName())){
             return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
         }
+        user.setUserPassword(SecurityUtils.encryptPassword(user.getUserPassword()));
         return toAjax(userService.insert(user));
     }
 

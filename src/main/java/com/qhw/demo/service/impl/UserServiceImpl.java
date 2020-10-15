@@ -30,6 +30,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User login(String userName,String userPassword) {
+        return userMapper.selectByLoginUser(userName,userPassword);
+    }
+
+    @Override
+    public User selectUserByUserName(String name) {
+        return userMapper.selectUserByUserName(name);
+    }
+
+    @Override
     public int checkNameUnique(String userName) {
         return userMapper.checkUsernameUnique(userName);
     }

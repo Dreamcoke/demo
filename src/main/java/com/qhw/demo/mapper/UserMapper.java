@@ -28,4 +28,8 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     int checkUsernameUnique(String userName);
+
+    User selectUserByUserName(String userName);
+
+    User selectByLoginUser(String userName,String userPassword);
 }

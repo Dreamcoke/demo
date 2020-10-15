@@ -14,6 +14,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     DepartmentMapper departmentMapper;
     @Autowired
     UserDepartmentMapper userDepartmentMapper;
+
+
+    @Override
+    public List<Department> selectDepartmentByUserId(Long userId) {
+        return departmentMapper.selectDepartmentByUserId(userId);
+    }
+
     @Override
     public int deleteByPrimaryKey(Long deptId) {
         return departmentMapper.deleteByPrimaryKey(deptId);

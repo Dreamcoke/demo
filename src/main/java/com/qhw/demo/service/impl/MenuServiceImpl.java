@@ -1,6 +1,7 @@
 package com.qhw.demo.service.impl;
 
 import com.qhw.demo.domain.Menu;
+import com.qhw.demo.domain.User;
 import com.qhw.demo.mapper.MenuMapper;
 import com.qhw.demo.mapper.RoleMenuMapper;
 import com.qhw.demo.service.MenuService;
@@ -14,6 +15,16 @@ public class MenuServiceImpl implements MenuService {
     MenuMapper menuMapper;
     @Autowired
     RoleMenuMapper roleMenuMapper;
+
+    @Override
+    public List<Menu> selectByUser(User user) {
+        return null;
+    }
+
+    @Override
+    public List<Menu> selectByUserId(Long userId) {
+        return menuMapper.selectByUserId(userId);
+    }
 
     @Override
     public int deleteByPrimaryKey(Long menuId) {

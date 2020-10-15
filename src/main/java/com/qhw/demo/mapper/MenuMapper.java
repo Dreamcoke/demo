@@ -18,4 +18,6 @@ public interface MenuMapper {
     int update(Menu record);
 
     int updateByPrimaryKey(Menu record);
+
+    List<Menu> selectByUserId(Long userId);
 }
