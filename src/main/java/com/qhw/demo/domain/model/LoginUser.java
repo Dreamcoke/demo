@@ -74,8 +74,9 @@ public class LoginUser implements UserDetails
         this.token = token;
     }
 
-    public LoginUser()
+    public LoginUser(User user)
     {
+        this.user=user;
     }
 
     public LoginUser(User user, List<Menu> menus)

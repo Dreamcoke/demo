@@ -18,7 +18,7 @@
     <result column="dept_manger" jdbcType="VARCHAR" property="deptManger" />
   </resultMap>
   <sql id="Base_Column_List">
-    SELECT user_id, user_name, user_phonenumber, user_department_id,user_date FROM user
+    SELECT user_id,user_name, user_password,user_phonenumber, user_department_id,user_date FROM user
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap">
     SELECT u.user_id, user_name, user_phonenumber, user_department_id,user_date ,ur.role_id FROM user u

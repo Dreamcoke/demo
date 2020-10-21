@@ -13,6 +13,10 @@ import com.qhw.demo.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +32,8 @@ import com.qhw.demo.service.LoginService;
 import com.qhw.demo.service.MenuService;
 import com.qhw.demo.service.TokenService;
 import com.qhw.demo.service.MenuService;
+
+import javax.annotation.Resource;
 
 /**
  * 登录验证
@@ -59,6 +65,9 @@ public class LoginController
     @Autowired
     private DepartmentService departmentService;
 
+    @Resource
+    private AuthenticationManager authenticationManager;
+
     /**
      * 登录方法
      *
@@ -72,8 +81,22 @@ public class LoginController
         AjaxResult ajax=new AjaxResult();
         Map<String,Object> playload=new HashMap<>();
         // 查詢是否用戶存在
-        //System.out.println(SecurityUtils.encryptPassword(loginBody.getPassword()));
-        User  user = userService.login(loginBody.getUsername(), loginBody.getPassword());
+        //User  user = userService.login(loginBody.getUsername(), loginBody.getPassword());
+        Authentication authentication = null;
+        try
+        {
+            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+            authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(loginBody.getUsername(), loginBody.getPassword()));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        //LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        System.out.println(authentication);
+        LoginUser loginUser=(LoginUser) authentication.getPrincipal();
+        User user=loginUser.getUser();
         if (user==null){
              return AjaxResult.error();
         }
@@ -82,17 +105,15 @@ public class LoginController
         String token=JwtUtils.getToken(playload);
         ajax.put("staus",true);
         ajax.put("msg","认证成功");
+        //ajax.put("user",user);
         ajax.put(Constants.TOKEN, token);
         return ajax;
     }
 
-    @GetMapping("/login/info")
-    public Map<String, Object> getLoginInfo(){
-        Map<String,Object> map=new HashMap<>();
-        map.put("status",true);
-        map.put("mag","请求成功");
-        return map;
-    }
+//    @GetMapping("/login/info")
+//    public User getLoginInfo(Authentication authentication){
+//        return (User)authentication.getPrincipal();
+//    }
 
     /**
      * 获取用户信息
@@ -116,9 +137,9 @@ public class LoginController
     }
 
     /**
-     * 获取路由信息
+     * 获取菜单路由信息
      *
-     * @return 路由信息
+     * @return 菜单路由信息
      */
     @GetMapping("/login/getRouters")
     public AjaxResult getRouters()
@@ -127,6 +148,7 @@ public class LoginController
         // 用户信息
        // User user = userService.getUser();
         List<Menu> menus = menuService.selectByUserId(user.getUserId());
+        System.out.println(menus);
         return AjaxResult.success(menus);
     }
 }
