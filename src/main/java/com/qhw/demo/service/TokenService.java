@@ -57,7 +57,7 @@ public class TokenService
      *
      * @return 用户信息
      */
-    public User getLoginUser(HttpServletRequest request)
+    public LoginUser getLoginUser(HttpServletRequest request)
     {
         // 获取请求携带的令牌
         String token = request.getHeader("token");
@@ -74,7 +74,8 @@ public class TokenService
             User user=new User();
             user.setUserId(Long.valueOf(String.valueOf(userId)) );
             user.setUserName(userName);
-            return user;
+            LoginUser loginUser=new LoginUser(user);
+            return loginUser;
         }
         return null;
     }

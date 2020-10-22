@@ -123,7 +123,8 @@ public class LoginController
     @GetMapping("/login/getInfo")
     public AjaxResult getInfo()
     {
-        User user = tokenService.getLoginUser(ServletUtils.getRequest());
+        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        User user=loginUser.getUser();
         //User user = loginUser.getUser();
         // 角色集合
         List<Role> roles = roleService.selectRoleByUserId(user.getUserId());
@@ -144,10 +145,10 @@ public class LoginController
     @GetMapping("/login/getRouters")
     public AjaxResult getRouters()
     {
-        User user = tokenService.getLoginUser(ServletUtils.getRequest());
+        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
         // 用户信息
        // User user = userService.getUser();
-        List<Menu> menus = menuService.selectByUserId(user.getUserId());
+        List<Menu> menus = menuService.selectByUserId(loginUser.getUser().getUserId());
         System.out.println(menus);
         return AjaxResult.success(menus);
     }

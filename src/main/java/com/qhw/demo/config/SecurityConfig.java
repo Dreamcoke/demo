@@ -1,6 +1,8 @@
 package com.qhw.demo.config;
 
 
+import com.qhw.demo.interceptor.JwtInterceptor;
+import com.qhw.demo.security.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +30,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
    // @Autowired
    // private JwtAuthenticationTokenFilter authenticationTokenFilter;
+
+    //@Autowired
+    //private JwtInterceptor jwtInterceptor;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -46,9 +54,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js"
-                ).permitAll();
-        // 开启登录认证流程过滤器
-       // http.addFilterBefore(new JwtLoginFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
+                ).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(jwtAuthenticationTokenFilter,UsernamePasswordAuthenticationFilter.class);
+//        // 开启登录认证流程过滤器
+//       http.addFilterBefore(new JwtLoginFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
         // 访问控制时登录状态检查过滤器
         //http.addFilterBefore(new JwtAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
 
