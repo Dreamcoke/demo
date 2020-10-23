@@ -3,7 +3,9 @@ package com.qhw.demo.config;
 
 import com.qhw.demo.interceptor.JwtInterceptor;
 import com.qhw.demo.security.JwtAuthenticationTokenFilter;
+import com.qhw.demo.security.provider.PoliceUsernamePasswordAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,10 +30,15 @@ import com.qhw.demo.security.JwtLoginFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    @Qualifier("userDetailsServiceImpl")
     private UserDetailsService userDetailsService;
 
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    @Autowired
+    @Qualifier("policeDetailsServiceImpl")
+    private UserDetailsService policeDetailsServiceImpl;
 
    // @Autowired
    // private JwtAuthenticationTokenFilter authenticationTokenFilter;
@@ -48,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 对于登录login 允许匿名访问
                 .antMatchers("/login/test").anonymous()
+                .antMatchers("/policelogin/test").anonymous()
                 .antMatchers(
                         HttpMethod.GET,
                         "/*.html",
@@ -92,7 +100,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.authenticationProvider(getPoliceUsernamePasswordAuthenticationProvider())     .userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+    }
+
+    protected PoliceUsernamePasswordAuthenticationProvider getPoliceUsernamePasswordAuthenticationProvider(){
+        PoliceUsernamePasswordAuthenticationProvider policeUsernamePasswordAuthenticationProvider=new PoliceUsernamePasswordAuthenticationProvider();
+        policeUsernamePasswordAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        policeUsernamePasswordAuthenticationProvider.setUserDetailsService(policeDetailsServiceImpl);
+        return policeUsernamePasswordAuthenticationProvider;
     }
 
 }

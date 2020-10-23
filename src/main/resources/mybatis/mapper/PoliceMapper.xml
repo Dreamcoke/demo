@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qhw.demo.mapper.PoliceMapper">
+    <resultMap id="BaseResultMap" type="com.qhw.demo.domain.Police">
+        <id column="police_id" jdbcType="BIGINT" property="userId" />
+        <result column="police_username" jdbcType="VARCHAR" property="userName" />
+        <result column="police_password" jdbcType="VARCHAR" property="userPassword" />
+    </resultMap>
+
+    <select id="selectPoliceByUsername" parameterType="String" resultMap="BaseResultMap">
+        SELECT p.police_id,p.police_username,police_password FROM police p WHERE p.police_username=#{username}
+    </select>
+
+</mapper>

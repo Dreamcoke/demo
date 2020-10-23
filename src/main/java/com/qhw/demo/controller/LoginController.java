@@ -96,7 +96,7 @@ public class LoginController
         //LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         System.out.println(authentication);
         LoginUser loginUser=(LoginUser) authentication.getPrincipal();
-        User user=loginUser.getUser();
+        User user=(User) loginUser.getUser();
         if (user==null){
              return AjaxResult.error();
         }
@@ -124,7 +124,7 @@ public class LoginController
     public AjaxResult getInfo()
     {
         LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
-        User user=loginUser.getUser();
+        User user=(User) loginUser.getUser();
         //User user = loginUser.getUser();
         // 角色集合
         List<Role> roles = roleService.selectRoleByUserId(user.getUserId());
@@ -148,7 +148,7 @@ public class LoginController
         LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
         // 用户信息
        // User user = userService.getUser();
-        List<Menu> menus = menuService.selectByUserId(loginUser.getUser().getUserId());
+        List<Menu> menus = menuService.selectByUserId(((User)loginUser.getUser()).getUserId());
         System.out.println(menus);
         return AjaxResult.success(menus);
     }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.qhw.demo.domain.Menu;
+import com.qhw.demo.domain.Police;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -62,7 +63,15 @@ public class LoginUser implements UserDetails
     /**
      * 用户信息
      */
-    private User user;
+    private Object user;
+
+    public Police getPolice() {
+        return (Police)user;
+    }
+
+    public void setPolice(Police police) {
+        this.user = police;
+    }
 
     public String getToken()
     {
@@ -85,19 +94,21 @@ public class LoginUser implements UserDetails
         this.menus = menus;
     }
 
+    public LoginUser(Police police){
+        this.user=police;
+    }
+
     @JsonIgnore
     @Override
     public String getPassword()
     {
-        return user.getUserPassword();
+        return ((BaseUser)user).getUserPassword();
     }
 
     @Override
-    public String getUsername()
-    {
-        return user.getUserName();
+    public String getUsername() {
+        return ((BaseUser) user).getUserName();
     }
-
     /**
      * 账户是否未过期,过期无法验证
      */
@@ -214,7 +225,7 @@ public class LoginUser implements UserDetails
         this.menus = menus;
     }
 
-    public User getUser()
+    public Object getUser()
     {
         return user;
     }
