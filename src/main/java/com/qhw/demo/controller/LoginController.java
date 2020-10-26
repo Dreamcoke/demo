@@ -13,6 +13,7 @@ import com.qhw.demo.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -75,6 +76,7 @@ public class LoginController
      * @return 结果
      */
     @ApiOperation(value = "验证用户信息接口",notes = "验证用户信息,生成token")
+    @PreAuthorize("@ss.hasPermi()")
     @PostMapping("/login/test")
     public AjaxResult login(@RequestBody LoginBody loginBody)
     {
@@ -120,6 +122,7 @@ public class LoginController
      *
      * @return 用户信息
      */
+    @PreAuthorize("@ss.hasPermi()")
     @GetMapping("/login/getInfo")
     public AjaxResult getInfo()
     {
@@ -142,6 +145,7 @@ public class LoginController
      *
      * @return 菜单路由信息
      */
+    @PreAuthorize("@ss.hasPermi()")
     @GetMapping("/login/getRouters")
     public AjaxResult getRouters()
     {

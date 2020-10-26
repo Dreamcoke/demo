@@ -100,7 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
-        auth.authenticationProvider(getPoliceUsernamePasswordAuthenticationProvider())     .userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.authenticationProvider(getPoliceUsernamePasswordAuthenticationProvider()).userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     protected PoliceUsernamePasswordAuthenticationProvider getPoliceUsernamePasswordAuthenticationProvider(){

@@ -8,6 +8,7 @@ import com.qhw.demo.domain.model.LoginUser;
 import com.qhw.demo.message.AjaxResult;
 import com.qhw.demo.security.token.PoliceUsernamePasswordAuthenticationToken;
 import com.qhw.demo.utils.JwtUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +26,7 @@ public class PoliceLoginController {
 
     @Resource
     private AuthenticationManager authenticationManager;
+    @PreAuthorize("@ss.hasPermi()")
     @PostMapping("/policelogin/test")
     public AjaxResult login(@RequestBody LoginBody loginBody)
     {
