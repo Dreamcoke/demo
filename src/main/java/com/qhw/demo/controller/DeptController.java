@@ -12,7 +12,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * 部门管理
+ *
+ */
 @Api(tags = "部门管理接口")
 @RequestMapping("/dept/show")
 @RestController

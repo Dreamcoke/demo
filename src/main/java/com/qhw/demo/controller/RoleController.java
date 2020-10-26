@@ -11,7 +11,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * 角色管理
+ *
+ */
 @Api(tags = "角色管理接口")
 @RestController
 @RequestMapping("/role/show")

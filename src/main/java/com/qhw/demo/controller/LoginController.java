@@ -37,9 +37,8 @@ import com.qhw.demo.service.MenuService;
 import javax.annotation.Resource;
 
 /**
- * 登录验证
+ * 用户1登录验证
  *
- * @author ruoyi
  */
 @Api(tags = "登录接口")
 @RestController

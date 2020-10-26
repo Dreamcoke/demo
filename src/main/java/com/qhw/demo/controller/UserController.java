@@ -19,7 +19,10 @@ import com.qhw.demo.service.UserService;
 import com.qhw.demo.service.DepartmentService;
 
 import java.util.List;
-
+/**
+ * 用户管理
+ *
+ */
 @RestController
 @RequestMapping("/user/show")
 @Api(tags = "用户管理接口")

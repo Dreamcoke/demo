@@ -11,6 +11,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/**
+ * 菜单管理
+ *
+ */
 @Api(tags = "菜单管理接口")
 @RestController
 @RequestMapping("/menu/show")
